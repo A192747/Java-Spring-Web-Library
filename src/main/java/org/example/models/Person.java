@@ -5,43 +5,25 @@ import jakarta.validation.constraints.*;
 public class Person {
     private int id;
     @NotEmpty(message = "Name should not be empty!")
-    @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters!")
+    @Size(min = 2, message = "Name must be between 2 and 30 characters!")
     private String name;
     @Min(value = 0, message = "Age should be positive!")
-    private int age;
+    private int year;
 
-    @NotEmpty(message = "Email should not be empty!")
-    @Email(message = "Email should be valid!")
-    private String email;
+    public Person() {}
 
-    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "Text could be entered like: Country, City, Post Address (6 di)")
-    private String address;
-
-    public Person() {
+    public int getYear() {
+        return year;
     }
 
-    public int getAge() {
-        return age;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Person(int id, String name, int age, String email, String address) {
+    public Person(int id, String name, int year) {
         this.id = id;
         this.name = name;
-        this.age = age;
-        this.email = email;
-        this.address = address;
+        this.year = year;
     }
 
     public int getId() {
@@ -58,13 +40,5 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }

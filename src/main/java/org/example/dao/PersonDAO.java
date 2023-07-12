@@ -2,13 +2,10 @@ package org.example.dao;
 
 import org.example.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,18 +27,18 @@ public class PersonDAO {
                 .findAny()
                 .orElse(null);
     }
-    public Optional<Person> show(String email) {
-        return jdbcTemplate.query("select * from person where email=?", new Object[] {email},
-                new BeanPropertyRowMapper<>(Person.class)).stream()
+    public Optional<Person> show(String name) {
+        return jdbcTemplate.query("select * from person where name=?", new Object[]{name}, new BeanPropertyRowMapper<>(Person.class))
+                .stream()
                 .findAny();
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("insert into person(name, age, email, address) values(?,?,?,?)", person.getName(), person.getAge(), person.getEmail(), person.getAddress());
+        jdbcTemplate.update("insert into person(name, age) values(?,?)", person.getName(), person.getYear());
     }
 
     public void update(int id, Person updatedPerson) {
-        jdbcTemplate.update("update person set name=?, age=?, email=?, address=? where id=?", updatedPerson.getName(), updatedPerson.getAge(), updatedPerson.getEmail(), updatedPerson.getAddress(), id);
+        jdbcTemplate.update("update person set name=?, year=? where id=?", updatedPerson.getName(), updatedPerson.getYear(), id);
     }
 
     public void delete(int id){
