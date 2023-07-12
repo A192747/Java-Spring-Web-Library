@@ -21,7 +21,6 @@ public class PersonDAO {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Person> index() {
-
         return jdbcTemplate.query("select * from person", new BeanPropertyRowMapper<>(Person.class));
     }
 
@@ -48,47 +47,4 @@ public class PersonDAO {
     public void delete(int id){
         jdbcTemplate.update("delete from person where id=?", id);
     }
-
-
-    public void testMultipleInsert(){
-        List<Person> people = create1000People();
-
-        long start = System.currentTimeMillis();
-        for(Person person : people){
-            save(person);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("Time: " + (end - start));
-    }
-
-    public void testBatchInsert(){
-        List<Person> people = create1000People();
-        long start = System.currentTimeMillis();
-        jdbcTemplate.batchUpdate("insert into Person values (?, ?, ?, ?)",
-                new BatchPreparedStatementSetter() {
-                    @Override
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setInt(1, people.get(i).getId());
-                        ps.setString(2, people.get(i).getName());
-                        ps.setInt(3, people.get(i).getAge());
-                        ps.setString(4, people.get(i).getEmail());
-                    }
-
-                    @Override
-                    public int getBatchSize() {
-                        return people.size();
-                    }
-                });
-        long end = System.currentTimeMillis();
-        System.out.println("Time: " + (end - start));
-    }
-    private List<Person> create1000People(){
-        List<Person> people = new ArrayList<>();
-        for(int i = 0; i < 1000; i++){
-            Person person = new Person(i, "name" + i, 20, "test" + i +"@mail.ru", "someAddress");
-            people.add(person);
-        }
-        return people;
-    }
-
 }
