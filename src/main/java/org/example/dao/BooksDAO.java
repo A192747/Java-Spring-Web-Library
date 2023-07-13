@@ -28,12 +28,12 @@ public class BooksDAO {
                 .orElse(null);
     }
     public void save(Book book) {
-        jdbcTemplate.update("insert into book(name, author, age) values(?,?,?)",
-                book.getName(), book.getYear());
+        jdbcTemplate.update("insert into book(name, author, year) values(?,?,?)",
+                book.getName(), book.getAuthor(), book.getYear());
     }
 
     public void update(int id, Book updatedBook) {
-        jdbcTemplate.update("update book set name=?, author=? year=? where id=?",
+        jdbcTemplate.update("update book set name=?, author=?, year=? where id=?",
                 updatedBook.getName(), updatedBook.getAuthor(), updatedBook.getYear(), id);
     }
 

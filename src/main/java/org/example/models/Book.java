@@ -6,6 +6,14 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class Book {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private int id;
     @NotEmpty
     @Size(min = 2, max = 100, message = "Book name must be between 2 and 100 characters!")
@@ -14,6 +22,8 @@ public class Book {
     @NotEmpty
     @Size(min = 2, max = 100, message = "Book author name must be between 2 and 100 characters!")
     private String author;
+    @Min(value = 0, message = "Book year should be positive!")
+    private int year;
 
     public String getName() {
         return name;
@@ -38,9 +48,6 @@ public class Book {
     public void setYear(int year) {
         this.year = year;
     }
-
-    @Min(value = 0, message = "Year should be more than 0")
-    private int year;
 
     public Book(int id, String name, String author, int year) {
         this.id = id;
