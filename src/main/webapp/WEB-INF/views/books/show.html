@@ -5,12 +5,22 @@
   <title>Person</title>
 </head>
 <body>
-<p th:text="${book.getName()}">Value</p>
-<p th:text="${book.getAuthor()}">Value</p>
-<p th:text="${book.getYear()}">Value</p>
+<p th:text="'Название книги: ' + ${book.getName()}">Value</p>
+<p th:text="'Автор книги: ' + ${book.getAuthor()}">Value</p>
+<p th:text="'Год выхода: ' + ${book.getYear()}">Value</p>
+<th:block th:if="${personTake == null}">
+  <select th:object="${person}" th:field="*{id}" id="person">
+    <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}">
+    </option>
+  </select>
+</th:block>
+<th:block th:else>
+  <p th:text="${'Данная книга занята: ' + personTake}">Value</p>
+</th:block>
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
-  <input type="submit" value="Delete"/>
+  <input type="submit" value="Удалить книгу"/>
 </form>
-<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
+<button th:onclick="'window.location.href = \'' + @{/books/{id}/edit(id=${book.getId()})} + '\';'">Редактировать</button>
+<br>
 </body>
 </html>

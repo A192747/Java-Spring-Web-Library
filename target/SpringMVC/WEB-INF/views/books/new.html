@@ -10,15 +10,15 @@
     <input type="text" th:field="*{name}" id="name">
     <p style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
     <br>
-    <label for="author">Author</label>
+    <label for="author">Автор книги:</label>
     <input type="text" th:field="*{author}" id="author">
     <p style="color: red;" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</p>
     <br>
-    <label for="year">Year</label>
+    <label for="year">Год выхода: </label>
     <input type="text" th:field="*{year}" id="year">
     <p style="color: red;" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</p>
     <br>
-    <input type="submit" value="Create">
+    <input type="submit" value="Создать">
 </form>
 
 </body>

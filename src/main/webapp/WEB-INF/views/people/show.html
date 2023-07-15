@@ -5,14 +5,21 @@
     <title>Person</title>
 </head>
 <body>
-<p th:text="${person.getName()}">Value</p>
-<p th:text="${person.getId()}">Value</p>
-<p th:text="${person.getAge()}">Value</p>
-<p th:text="${person.getEmail()}">Value</p>
-<p th:text="${person.getAddress()}">Value</p>
+<p th:text="'ФИО: ' + ${person.getName()}">Value</p>
+<p th:text="'Год рождения: ' + ${person.getYear()}">Value</p>
+<hr>
+<span th:if="${books.isEmpty()}">Человек пока не взял ни одной книги</span>
+<span th:unless="${books.isEmpty()}">Книги:</span>
+<div th:each="book : ${books}">
+    <p th:text="${book.getName()} + ', ' ${book.getAuthor() + ', ' + ${book.getYear()}}">book</p>
+</div>
+<hr>
+
 <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-    <input type="submit" value="Delete"/>
+    <input type="submit" value="Удалить человека"/>
 </form>
-<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
+<button th:onclick="'window.location.href = \'' + @{/people/{id}/edit(id=${person.getId()})} + '\';'">Редактировать</button>
+<br>
+<a href="/people">Назад к списку людей</a>
 </body>
 </html>

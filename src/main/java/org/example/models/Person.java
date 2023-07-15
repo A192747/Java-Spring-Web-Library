@@ -4,10 +4,11 @@ import jakarta.validation.constraints.*;
 
 public class Person {
     private int id;
-    @NotEmpty(message = "Name should not be empty!")
-    @Size(min = 2, message = "Name must be more than 2 characters!")
+    @NotEmpty(message = "Поле не должно быть пустым!")
+    @Size(min = 2, message = "ФИО должно быть больше 2-х символов!")
+    @Pattern(regexp = "[А-Я][а-я]+\\s?[А-Я][а-я]+\\s?([А-Я][а-я]+\\s?)?", message = "Введите ФИО в формате: Фамилия Имя Отчество(при наличии)")
     private String name;
-    @Min(value = 0, message = "Age should be positive!")
+    @Min(value = 1900, message = "Год рождения должен быть больше, чем 1900")
     private int year;
 
     public Person() {}

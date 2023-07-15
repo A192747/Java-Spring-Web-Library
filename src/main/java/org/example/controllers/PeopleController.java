@@ -1,26 +1,38 @@
 package org.example.controllers;
 
 import jakarta.validation.Valid;
+import org.example.dao.BooksDAO;
+import org.example.dao.PairPersonBookDAO;
 import org.example.dao.PersonDAO;
+import org.example.models.Book;
+import org.example.models.PairPersonBook;
 import org.example.models.Person;
 import org.example.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Indexed;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
+
+    private final BooksDAO booksDAO;
+    private final PairPersonBookDAO pairPersonBookDAO;
     private final PersonValidator personValidator;
     @Autowired
-    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
+    public PeopleController(PersonDAO personDAO, BooksDAO booksDAO, PairPersonBookDAO pairPersonBookDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.booksDAO = booksDAO;
+        this.pairPersonBookDAO = pairPersonBookDAO;
         this.personValidator = personValidator;
     }
-
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", personDAO.index());
@@ -29,7 +41,15 @@ public class PeopleController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
+
+        List<Book> books = new ArrayList<>();
+        List<Integer> booksIds = pairPersonBookDAO.getBooksIdsByPersonId(id);
+        for(Integer bookId: booksIds) {
+            books.add(booksDAO.show(bookId));
+        }
+
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books", books);
         return "people/show";
     }
 
@@ -71,6 +91,5 @@ public class PeopleController {
         personDAO.delete(id);
         return "redirect:/people";
     }
-
 
 }
