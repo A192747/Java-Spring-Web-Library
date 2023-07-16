@@ -8,10 +8,14 @@
 <p th:text="'ФИО: ' + ${person.getName()}">Value</p>
 <p th:text="'Год рождения: ' + ${person.getYear()}">Value</p>
 <hr>
-<span th:if="${books.isEmpty()}">Человек пока не взял ни одной книги</span>
-<span th:unless="${books.isEmpty()}">Книги:</span>
-<div th:each="book : ${books}">
-    <p th:text="${book.getName()} + ', ' ${book.getAuthor() + ', ' + ${book.getYear()}}">book</p>
+<div th:if="${books.isEmpty()}">
+    <p>Человек пока не взял ни одной книги</p>
+</div>
+<div th:unless="${books.isEmpty()}">
+    <p>Книги:</p>
+    <div th:each="book : ${books}">
+        <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</p>
+    </div>
 </div>
 <hr>
 

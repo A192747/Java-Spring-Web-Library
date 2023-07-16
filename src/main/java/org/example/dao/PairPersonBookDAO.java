@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,7 @@ public class PairPersonBookDAO {
     private final JdbcTemplate jdbcTemplate;
 
     public List<Integer> getBooksIdsByPersonId(int personId) {
-        return jdbcTemplate.query("select * from person_book where person_id=?", new Object[]{personId},
-                new BeanPropertyRowMapper<>(Integer.class));
+        return jdbcTemplate.queryForList("select book_id from person_book where person_id=?", Integer.class, personId);
     }
 
     public Optional<PairPersonBook> isBookTaken(int bookId) {

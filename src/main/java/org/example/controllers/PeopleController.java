@@ -44,9 +44,11 @@ public class PeopleController {
 
         List<Book> books = new ArrayList<>();
         List<Integer> booksIds = pairPersonBookDAO.getBooksIdsByPersonId(id);
-        for(Integer bookId: booksIds) {
+        System.out.println(booksIds);
+        for(int bookId: booksIds) {
             books.add(booksDAO.show(bookId));
         }
+        System.out.println(books);
 
         model.addAttribute("person", personDAO.show(id));
         model.addAttribute("books", books);
