@@ -2,21 +2,27 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Person</title>
+  <title>Страница книги</title>
 </head>
 <body>
 <p th:text="'Название книги: ' + ${book.getName()}">Value</p>
 <p th:text="'Автор книги: ' + ${book.getAuthor()}">Value</p>
 <p th:text="'Год выхода: ' + ${book.getYear()}">Value</p>
-<th:block th:if="${personTake == null}">
+
+<div th:if="${personTake}">
+  <hr>
+  <p th:text="${'Данная книга занята: ' + personTake}">Value</p>
+  <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+    <input type="submit" value="Освободить книгу"/>
+  </form>
+</div>
+<div th:unless="${personTake}">
   <select th:object="${person}" th:field="*{id}" id="person">
     <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}">
     </option>
   </select>
-</th:block>
-<th:block th:else>
-  <p th:text="${'Данная книга занята: ' + personTake}">Value</p>
-</th:block>
+</div>
+
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
   <input type="submit" value="Удалить книгу"/>
 </form>

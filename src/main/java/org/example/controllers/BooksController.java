@@ -39,8 +39,10 @@ public class BooksController {
         model.addAttribute("book", booksDAO.show(id));
         Optional<PairPersonBook> temp = pairPersonBookDAO.isBookTaken(id);
         if(temp.isPresent()) {
+            System.out.println(temp.get().getPersonId());
             model.addAttribute("personTake", personDAO.show(temp.get().getPersonId()).getName());
         }
+        else model.addAttribute("personTake", null);
         model.addAttribute("people", personDAO.index());
         return "books/show";
     }
