@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Страница книги</title>
@@ -9,19 +9,21 @@
 <p th:text="'Автор книги: ' + ${book.getAuthor()}">Value</p>
 <p th:text="'Год выхода: ' + ${book.getYear()}">Value</p>
 
-<div th:if="${personTake}">
-  <hr>
-  <p th:text="${'Данная книга занята: ' + personTake}">Value</p>
+<form th:if="${user}">
+  <p th:text="${'Данная книга занята: ' + user}">Value</p>
   <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
     <input type="submit" value="Освободить книгу"/>
   </form>
-</div>
+</form>
+<form th:unless="${user}">
+  <label for="person">Выберите пользователя:</label>
 
   <select th:object="${person}" th:field="*{id}" id="person">
-    <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}">
-    </option>
+    <option th:each="person : ${people}" th:value="${person.getId()}"
+            th:text="${person.getName()}"></option>
   </select>
-
+  <input type="submit" value="Назначить книгу">
+</form>
 
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
   <input type="submit" value="Удалить книгу"/>

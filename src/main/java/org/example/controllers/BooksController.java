@@ -6,6 +6,7 @@ import org.example.dao.PairPersonBookDAO;
 import org.example.dao.PersonDAO;
 import org.example.models.Book;
 import org.example.models.PairPersonBook;
+import org.example.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,14 +36,14 @@ public class BooksController {
         return "books/index";
     }
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@ModelAttribute ("person") Person person,
+                       @PathVariable("id") int id, Model model) {
         model.addAttribute("book", booksDAO.show(id));
         Optional<PairPersonBook> temp = pairPersonBookDAO.isBookTaken(id);
         if(temp.isPresent()) {
             System.out.println(temp.get().getPersonId());
-            model.addAttribute("personTake", personDAO.show(temp.get().getPersonId()).getName());
+            model.addAttribute("user", personDAO.show(temp.get().getPersonId()).getName());
         }
-        else model.addAttribute("personTake", null);
         model.addAttribute("people", personDAO.index());
         return "books/show";
     }

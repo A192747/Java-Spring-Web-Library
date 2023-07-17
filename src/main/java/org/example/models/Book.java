@@ -22,7 +22,7 @@ public class Book {
 
     @NotEmpty(message = "Поле не должно быть пустым!")
     @Size(min = 2, max = 100, message = "Имя автора книги должно быть от 2 до 100 символов!")
-    @Pattern(regexp = "[А-Я][а-я]+\\s?[А-Я][а-я]+\\s?([А-Я][а-я]+\\s?)?", message = "Введите ФИО в формате: Фамилия Имя Отчество(при наличии)")
+    @Pattern(regexp = "[А-Я][а-я]+\\s[А-Я][а-я]+\\s?([А-Я][а-я]+\\s?)?", message = "Введите ФИО в формате: Фамилия Имя Отчество(при наличии)")
     private String author;
     @Min(value = 0, message = "Book year should be positive!")
     private int year;

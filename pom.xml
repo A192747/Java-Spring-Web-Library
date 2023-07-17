@@ -19,7 +19,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
 
@@ -54,8 +54,9 @@
     <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6 -->
     <dependency>
       <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring6</artifactId>
+      <artifactId>thymeleaf-spring5</artifactId>
       <version>3.1.1.RELEASE</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
@@ -86,6 +87,23 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring6</artifactId>
+      <version>3.1.1.RELEASE</version>
+    </dependency>
 
   </dependencies>
 
