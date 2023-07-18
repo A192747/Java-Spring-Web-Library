@@ -9,13 +9,11 @@
 <p th:text="'Автор книги: ' + ${book.getAuthor()}">Value</p>
 <p th:text="'Год выхода: ' + ${book.getYear()}">Value</p>
 
-<form th:if="${user}">
-  <p th:text="${'Данная книга занята: ' + user}">Value</p>
-  <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
+<form th:if="${user}" th:method="PATCH" th:action="@{/books/{id}/setPerson(id=${book.getId()})}">
+  <p th:text="${'Данная книга занята: ' + user.getName()}">Value</p>
     <input type="submit" value="Освободить книгу"/>
-  </form>
 </form>
-<form th:unless="${user}">
+<form th:unless="${user}" th:method="POST" th:action="@{/books/{id}/setPerson(id=${book.getId()})}">
   <label for="person">Выберите пользователя:</label>
 
   <select th:object="${person}" th:field="*{id}" id="person">

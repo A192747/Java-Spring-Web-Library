@@ -42,10 +42,23 @@ public class BooksController {
         Optional<PairPersonBook> temp = pairPersonBookDAO.isBookTaken(id);
         if(temp.isPresent()) {
             System.out.println(temp.get().getPersonId());
-            model.addAttribute("user", personDAO.show(temp.get().getPersonId()).getName());
+            model.addAttribute("user", personDAO.show(temp.get().getPersonId()));
         }
         model.addAttribute("people", personDAO.index());
         return "books/show";
+    }
+
+    @PostMapping("/{id}/setPerson")
+    public String setPerson(@ModelAttribute("person") Person person,
+                            @PathVariable("id") int id) {
+        pairPersonBookDAO.save(person.getId(), id);
+        return "redirect:/books/{id}";
+    }
+
+    @PatchMapping("/{id}/setPerson")
+    public String unSetPerson(@PathVariable("id") int id) {
+        pairPersonBookDAO.deleteBook(id);
+        return "redirect:/books/{id}";
     }
 
     @GetMapping("/new")

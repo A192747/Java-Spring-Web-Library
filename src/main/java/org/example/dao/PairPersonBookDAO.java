@@ -34,4 +34,9 @@ public class PairPersonBookDAO {
         jdbcTemplate.update("insert into person_book(person_id, book_id) values (?,?)", personId, bookId);
     }
 
+    public void deleteBook(int bookId) {
+        jdbcTemplate.update("delete from person_book where book_id=?", bookId);
+    }
+
+
 }
