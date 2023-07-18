@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
+    <link href="/resources/css/main.css" rel="stylesheet"/>
 </head>
 <body>
     <a href="/people">List of people</a>
-    <br>
-    <a href="/people/new">Add new person</a>
     <br>
     <a href="/books">List of books</a>
 </body>

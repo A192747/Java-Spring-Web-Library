@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Список пользователей</title>
+    <link href="/resources/css/index.css" rel="stylesheet"/>
 </head>
 <body>
+<p>Список пользователей</p>
 <div th:each="person : ${people}">
   <a th:href= "@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">user</a>
 </div>
@@ -12,5 +14,6 @@
 <br>
 <hr>
 <a href="/people/new">Добавить пользователя</a>
+<a href="/">Главное меню</a>
 </body>
 </html>

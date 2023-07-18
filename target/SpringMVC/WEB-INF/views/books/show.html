@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Страница книги</title>
+  <link href="/resources/css/show/showBook.css" rel="stylesheet"/>
 </head>
 <body>
 <p th:text="'Название книги: ' + ${book.getName()}">Value</p>
@@ -28,5 +29,6 @@
 </form>
 <button th:onclick="'window.location.href = \'' + @{/books/{id}/edit(id=${book.getId()})} + '\';'">Редактировать</button>
 <br>
+<a href="/books">Назад к списку книг</a>
 </body>
 </html>
