@@ -6,7 +6,7 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
-    <label for="name">Name</label>
+    <label for="name">Название книги:</label>
     <input type="text" th:field="*{name}" id="name">
     <p style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
     <br>
